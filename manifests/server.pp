@@ -129,7 +129,9 @@ class clickhouse::server (
 
   if $install_client {
     class { 'clickhouse::client':
-      manage_repo => $manage_repo,
+      manage_repo    => $manage_repo,
+      package_ensure => $package_ensure,
+      manage_package => $manage_package,
     }
   }
 
