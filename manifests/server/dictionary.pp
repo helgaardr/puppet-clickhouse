@@ -20,6 +20,8 @@
 #   Specifies whether to create dictionary. Valid values are 'present', 'absent'. Defaults to 'present'.
 # @param source
 #   Path to a 'files' folder in puppet, where dictionary file are located. Defaults to 'puppet:///modules/${module_name}'.
+# @param datasource
+#   Path to dictionary datafile. Accepts any valid File::source value. Defaults to undef.
 #
 define clickhouse::server::dictionary(
   Stdlib::Unixpath $dict_dir        = $clickhouse::server::dict_dir,
@@ -27,6 +29,7 @@ define clickhouse::server::dictionary(
   String $dict_file_group           = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure = 'present',
   String $source                    = "${clickhouse::server::dict_source_folder}/${title}",
+  String $datasource                = undef,
 ) {
 
   file { "${dict_dir}/${title}":
@@ -35,6 +38,18 @@ define clickhouse::server::dictionary(
     group  => $dict_file_group,
     mode   => '0664',
     source => $source,
+  }
+
+  if ($datasource != undef) {
+
+    file { "${dict_dir}/${title}":
+      ensure => $ensure,
+      owner  => $dict_file_owner,
+      group  => $dict_file_group,
+      mode   => '0664',
+      source => $datasource,
+    }
+
   }
 
 }
