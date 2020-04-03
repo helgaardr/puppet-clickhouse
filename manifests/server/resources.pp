@@ -22,8 +22,10 @@ class clickhouse::server::resources {
   }
 
   if $clickhouse::server::dictionaries {
-    $clickhouse::server::dictionaries.each |$dict| {
-      clickhouse::server::dictionary { $dict: }
+    $clickhouse::server::dictionaries.each |$dict, $data| {
+      clickhouse::server::dictionary { $dict:
+        * => $data
+      }
     }
   }
 
