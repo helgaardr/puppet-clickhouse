@@ -118,7 +118,7 @@ class clickhouse::server (
   Optional[Clickhouse::Clickhouse_users] $users                             = undef,
   Optional[Hash[String, Hash[String, Any]]] $profiles                       = undef,
   Optional[Clickhouse::Clickhouse_quotas] $quotas = undef,
-  Optional[Array[Hash[String,String]]] $dictionaries                        = undef,
+  Optional[Hash[String,Hash[String,String]]] $dictionaries                  = undef,
   Optional[Clickhouse::Clickhouse_replication] $replication                 = undef,
   Optional[Clickhouse::Clickhouse_remote_servers] $remote_servers           = undef,
 ) inherits clickhouse::params {
