@@ -46,7 +46,7 @@ define clickhouse::server::dictionary(
 
   if ($datapath != undef) and ($datasource != undef) {
 
-    file { ${datapath}:
+    file { $datapath:
       ensure => $ensure,
       owner  => $dict_file_owner,
       group  => $dict_file_group,
